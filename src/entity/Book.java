@@ -25,9 +25,7 @@ private String isbn;
         this.isbn = isbn;
     }
 
-    public Book(String voina_i_Mir, String lTolstoy, int i) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    
 
     public String getName() {
         return name;
@@ -63,7 +61,12 @@ private String isbn;
 
     @Override
     public String toString() {
-        return "Book{" + "name=" + name + ", author=" + author + ", publishedYear=" + publishedYear + ", isbn=" + isbn + '}';
+        return "Book{" 
+                + "name=" + name 
+                + ", author=" + author 
+                + ", publishedYear=" + publishedYear 
+                + ", isbn=" + isbn 
+                + '}';
     }
     
 }

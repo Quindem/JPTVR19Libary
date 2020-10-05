@@ -6,7 +6,11 @@
 package jptvr19libary;
 
 import entity.Book;
+import entity.Reader;
 import java.util.Scanner;
+import Tools.CreatorBook;
+
+
 
 
 /**
@@ -14,10 +18,11 @@ import java.util.Scanner;
  * @author pupil
  */
  class App {
-    public void run(Book[] books){
+     private Book[] books = new Book[10];
+     public void run(){
         System.out.println("---Библиотека---");
         boolean repeat = true;
-        do{
+     do{
         System.out.println("Задачи");
         System.out.println("1. добавить новую книгу");
         System.out.println("2.список книг");
@@ -32,19 +37,39 @@ import java.util.Scanner;
         switch (task){
             case "0":
                 System.out.println("---- Конец программы ----");
-                    repeat = false;
+                repeat = false;
                 break;
             case"1":
                 System.out.println("добавить новую книгу");
-                Book book = new Book("Voina i Mir", "L.Tolstoy", 2010);
-                books[0] = book;
+                 //  Book book = new Book("Voina i mir", "L.Tolstoy", 2010, "123-1234");
+                    CreatorBook creatorBook = new CreatorBook();
+                    Book book = creatorBook.getBook();
+                    for (int i = 0; i < books.length; i++) {
+                        if(books[i] == null){
+                            books[i] = book;
+                      break;
+                        }
+                    }
                     
-                break;
+                
             case "2":
                 System.out.println("список книг");
+                for (int i = 0; i < books.length; i++){
+                    if(books[i]!= null){
+                        System.out.println(i+1+""+ books[i].toString());
+                        
+                    }
+                }
                 break;
             case "3":
                 System.out.println("Зарегистрировать читателя");
+                 Reader reader = new Reader("Ivan", "Ivanov", "56565656");
+                    System.out.println("Имя читателя: "
+                            +reader.getFirstname()
+                            +" "
+                            + reader.getLastname()
+                    );
+                    System.out.println(reader.toString());
                 break;
             case "4":
                System.out.println("выдать книгу читателю");
@@ -61,6 +86,8 @@ import java.util.Scanner;
         }
     }while(repeat);
 }
+
+   
 }
         
 
