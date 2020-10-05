@@ -9,7 +9,7 @@ import entity.Book;
 import entity.Reader;
 import java.util.Scanner;
 import Tools.CreatorBook;
-
+import Tools.CreatorReader;
 
 
 
@@ -19,6 +19,7 @@ import Tools.CreatorBook;
  */
  class App {
      private Book[] books = new Book[10];
+     private Reader[] readers = new Reader[10];
      public void run(){
         System.out.println("---Библиотека---");
         boolean repeat = true;
@@ -63,13 +64,14 @@ import Tools.CreatorBook;
                 break;
             case "3":
                 System.out.println("Зарегистрировать читателя");
-                 Reader reader = new Reader("Ivan", "Ivanov", "56565656");
-                    System.out.println("Имя читателя: "
-                            +reader.getFirstname()
-                            +" "
-                            + reader.getLastname()
-                    );
-                    System.out.println(reader.toString());
+                 Reader reader = new Reader();
+                    CreatorReader creatorReader = new CreatorReader();
+                    Reader reader = CreatorReader.getReader();
+                    for (int i = 0; i < readers.length; i++) {
+                        if(readers[i] == null){
+                            readers[i] = reader;
+                        
+                    
                 break;
             case "4":
                System.out.println("выдать книгу читателю");
@@ -85,9 +87,9 @@ import Tools.CreatorBook;
                 
         }
     }while(repeat);
-}
+
 
    
-}
-        
+
+     
 
