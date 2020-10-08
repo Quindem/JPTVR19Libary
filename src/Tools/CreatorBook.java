@@ -13,7 +13,7 @@ import java.util.Scanner;
  * @author pupil
  */
 public class CreatorBook {
-    private Scanner scanner = new Scanner(System.in);
+       private final Scanner scanner = new Scanner(System.in);
 
     public Book getBook() {
         Book book = new Book();
