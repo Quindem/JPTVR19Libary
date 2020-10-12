@@ -11,7 +11,10 @@ import entity.Book;
 import entity.Reader;
 import java.util.Scanner;
 import Tools.CreatorBook;
+import Tools.CreatorHistory;
 import Tools.CreatorReader;
+import Tools.HistorySaver;
+import entity.History;
 
 
 
@@ -22,9 +25,14 @@ import Tools.CreatorReader;
  class App {
     private Book[] books = new Book[10];
     private Reader[] readers = new Reader[10];
+    private History[] histories = new History[10];
     public App(){
         BookSaver bookSaver = new BookSaver();
         books = bookSaver.loadBooks();
+        ReaderSaver readerSaver = new ReaderSaver();
+        readers = readerSaver.loadReaders();
+        HistorySaver historySaver = new HistorySaver();
+        histories = historySaver.loadHistories();
     }
     public void run(){
         boolean repeat = true;
@@ -84,12 +92,36 @@ import Tools.CreatorReader;
                     break;
                 case "4":
                     System.out.println("--- Список читателей ---");
+                    for(int i = 0; i < readers.length; i++) {
+                        if (readers[i] != null){
+                            System.out.println(i+1+"." + readers[i].toString());
+                                    }
+                    }
                     break;
                 case "5":
                     System.out.println("--- Выдать книгу читателю ---");
+                    CreatorHistory creatorHistory = new CreatorHistory();
+                    History history = creatorHistory.takeOnBook(books, readers);
+                    for (int i = 0; i < histories.length;i++){
+                     if(histories[i] == null){
+                         histories[i] = history;
+                         break;   
+                    }
+                    
+                     } 
+                    HistorySaver historySaver = new HistorySaver();
+                    historySaver.saveHistories(readers);
                     break;
                 case "6":
                     System.out.println("--- Вернуть книгу в библиотеку ---");
+                    break;
+                case "7":
+                    System.out.println("--- Список выданных книг ---");
+                    for(int i = 0; i < histories.length; i++) {
+                        if (histories[i] != null){
+                            System.out.println(i+1+"." + histories[i].toString());
+                                    }
+                    }
                     break;
                 default:
                     System.out.println("Нет такой задачи.");
