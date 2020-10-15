@@ -2,4 +2,6 @@
 /dist
 /build
 build.xml
-/books
+books
+readers
+histories

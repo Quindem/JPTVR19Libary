@@ -19,6 +19,10 @@ import java.io.ObjectOutputStream;
  * @author pupil
  */
 public class ReaderSaver {
+
+    public void saveReaders(Reader[] readers) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
        public class readerSaver {
     public void saveReaders(Reader[]readers){
         FileOutputStream fos = null;

@@ -6,37 +6,37 @@
 package entity;
 
 import java.util.Date;
+import java.io.Serializable;
 
 /**
  *
  * @author pupil
  */
-public class History {
-   private Book book;
-   private Reader reader;
-   private Date giveOutDate;
-   private Date returnDate;
-public History(){
+public class History implements Serializable{
+    private Book book;
+    private Reader reader;
+    private Date giveOutDate;
+    private Date returnDate;
 
-}
+    public History() {
+    }
 
     public History(Book book, Reader reader, Date giveOutDate, Date returnDate) {
         this.book = book;
         this.reader = reader;
         this.giveOutDate = giveOutDate;
         this.returnDate = returnDate;
-        
     }
 
     public Date getReturnDate() {
         return returnDate;
     }
 
-    public void setReturnDate(Date  returnDate) {
+    public void setReturnDate(Date returnDate) {
         this.returnDate = returnDate;
     }
 
-    public Book getbook() {
+    public Book getBook() {
         return book;
     }
 
@@ -59,18 +59,19 @@ public History(){
     public void setGiveOutDate(Date giveOutDate) {
         this.giveOutDate = giveOutDate;
     }
-   @Override
-    public String toString(){
+
+    @Override
+    public String toString() {
         return "History{" 
                 + "book=" + book.getName()
                 + ", reader=" + reader.getLastname()
-                + ",giveOutDate=" + giveOutDate
+                + ", giveOutDate=" + giveOutDate
                 + ", returnDate=" + returnDate
                 + '}';
+    }
     
 }
-    
-}
+
     
 
    

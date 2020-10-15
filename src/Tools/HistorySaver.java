@@ -5,7 +5,7 @@
  */
 package Tools;
 
-import entity.Book;
+
 import entity.History;
 import entity.Reader;
 import java.io.FileInputStream;
@@ -20,40 +20,43 @@ import java.io.ObjectOutputStream;
  * @author pupil
  */
 public class HistorySaver {
-     public class readerSaver {
-    public void saveReaders(Reader[]readers){
-}
-    {
-        
+
+    public void saveHistories(History[] histories) {
+       
         FileOutputStream fos = null;
         ObjectOutputStream oos = null;
         try {
-            fos = new FileOutputStream("readers");
+            fos = new FileOutputStream("histories");
             oos = new ObjectOutputStream(fos);
             oos.writeObject(histories);
             oos.flush();
-        }catch (FileNotFoundException ex){
+        } catch (FileNotFoundException ex) {
             System.out.println("Не найден файл");
-        }catch (IOException ex){
+        } catch (IOException ex) {
             System.out.println("Ошибка ввода/вывода");
-        
-   
-    public History[] loadHistories(){
-    History[] readers = new Reader[10];
+        }
+    }
+
+    public History[] loadHistories() {
+        History[] histories = new History[10];
         FileInputStream fis = null;
         ObjectInputStream ois = null;
-        try{
+        try {
             fis = new FileInputStream("histories");
             ois = new ObjectInputStream(fis);
-         readers = (Reader[]) ois.readObject();
+            histories = (History[]) ois.readObject();
         } catch (FileNotFoundException ex) {
-           System.out.println("Не найден файл");
+            System.out.println("Не найден файл");
         } catch (IOException ex) {
             System.out.println("Ошибка ввода/вывода");
         } catch (ClassNotFoundException ex) {
             System.out.println("Не найден класс");
         }
         return histories;
+  
     }
+    
+}
+
         
 
