@@ -43,6 +43,7 @@ import Tools.ReaderSaver;
     public void run(){
         boolean repeat = true;
         System.out.println("--- Библиотека ---");
+        this.loginedUser = secureManager.checkTask(user,readers);
         do{
             System.out.println("Задачи: ");
             System.out.println("0. Выйти из программы");
