@@ -7,40 +7,41 @@ package Tools;
 import entity.Book;
 import entity.History;
 import entity.Reader;
+import entity.User;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Scanner;
+import jptvr19libary.App;
 /**
  *
  * @author pupil
  */
 public class LibaryManager {
     private Scanner scanner = new Scanner(System.in);
+    private ReaderManager readerManager = new ReaderManager();
+    private BookManager bookManager = new BookManager();
 
-    public History takeOnBook(Book[] books,Reader[] readers) {
+    public History takeOnBook(Book[] books, Reader[] readers) {
         History history = new History();
         // Вывести список читателей
         // Попросить пользователя выбрать номер читателя
         // По номеру читателя взять конкретного читателя из массива
         // Тоже самое проделать для читателя.
         // Инициировать history и отдать его return
-        System.out.println("--- Список читателей ---");
-        for (int i = 0; i < readers.length; i++) {
-            if(readers[i] != null){
-                System.out.println(i+1+". " + readers[i].toString());
-            }
+        User loggedInUser = App.loginedUser;
+        Reader reader = null;
+        if("READER".equals(loggedInUser.getRole())){
+            reader = loggedInUser.getReader();
+        }else if("MANAGER".equals(loggedInUser.getRole())){
+            System.out.println("--- Список читателей ---");
+            readerManager.printListReaders(readers);
+            System.out.print("Выберите номер читателя: ");
+            int readerNumber = scanner.nextInt();
+            scanner.nextLine();
+            reader = readers[readerNumber-1];
         }
-        System.out.print("Выберите номер читателя: ");
-        int readerNumber = scanner.nextInt();
-        scanner.nextLine();
-        Reader reader = readers[readerNumber-1];
         history.setReader(reader);
-        System.out.println("--- Список книг ---");
-        for (int i = 0; i < books.length; i++) {
-            if(books[i] != null){
-                System.out.println(i+1+". " + books[i].toString());
-            }
-        }
+        bookManager.printListBooks(books);
         System.out.print("Выберите номер книги: ");
         int bookNumber = scanner.nextInt();
         scanner.nextLine();
@@ -48,20 +49,35 @@ public class LibaryManager {
         history.setBook(book);
         Calendar calendar = new GregorianCalendar();
         history.setGiveOutDate(calendar.getTime());
+        this.printHistory(history);
         return history;
     }
 
     public void returnBook(History[] histories) {
         System.out.println("--- Список выданных книг ---");
         for (int i = 0; i < histories.length; i++) {
-            if(histories[i] != null && histories[i].getReturnDate() == null){
-                System.out.printf("%d. Книгу \"%s\" читает %s %s%n" 
-                        ,i+1
-                        ,histories[i].getBook().getName()
-                        ,histories[i].getReader().getFirstname()
-                        ,histories[i].getReader().getLastname()
-                );
+            if("MANAGER".equals(App.loginedUser.getRole())){
+                if(histories[i] != null && histories[i].getReturnDate() == null){
+                    System.out.printf("%d. Книгу \"%s\" читает %s %s%n" 
+                            ,i+1
+                            ,histories[i].getBook().getName()
+                            ,histories[i].getReader().getFirstname()
+                            ,histories[i].getReader().getLastname()
+                    );
+                }
+            }else if("READER".equals(App.loginedUser.getRole())){
+                if(histories[i] != null 
+                        && histories[i].getReader().equals(App.loginedUser.getReader())
+                        && histories[i].getReturnDate() == null){
+                    System.out.printf("%d. Книгу \"%s\" читает %s %s%n" 
+                            ,i+1
+                            ,histories[i].getBook().getName()
+                            ,histories[i].getReader().getFirstname()
+                            ,histories[i].getReader().getLastname()
+                    );
+                }
             }
+            
         }
         System.out.print("Выберите номер возвращаемой книги: ");
         int historyNumber = scanner.nextInt();
@@ -71,11 +87,33 @@ public class LibaryManager {
     }
 
     public void addHistoryToArray(History history, History[] histories) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        for (int i = 0; i < histories.length; i++) {
+            if (histories[i] == null) {
+                histories[i] = history;
+                break;
+            }
+        }
+    }
+
+    private void printHistory(History history) {
+        System.out.printf("Книга \"%s\" выдана %s %s%n"
+                ,history.getBook().getName()
+                ,history.getReader().getFirstname()
+                ,history.getReader().getLastname()
+        );
     }
 
     public void printListReadBooks(History[] histories) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        for (int i = 0; i < histories.length; i++) {
+            if(histories[i] != null && histories[i].getReturnDate()==null){
+                System.out.printf("%d. Книгу \"%s\" читает %s %s%n" 
+                        ,i+1
+                        ,histories[i].getBook().getName()
+                        ,histories[i].getReader().getFirstname()
+                        ,histories[i].getReader().getLastname()
+                );
+            }
+        }
     }
     
 }

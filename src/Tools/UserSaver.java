@@ -6,27 +6,27 @@
 package Tools;
 
 
-import entity.Reader;
+import entity.Book;
+import entity.User;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-
 /**
  *
  * @author pupil
  */
-public class ReaderSaver {
+public class UserSaver {
 
-    public void saveReaders(Reader[] readers) {
+    public void saveUsers(User[] users) {
         FileOutputStream fos = null;
         ObjectOutputStream oos = null;
         try {
-            fos = new FileOutputStream("readers");
+            fos = new FileOutputStream("users");
             oos = new ObjectOutputStream(fos);
-            oos.writeObject(readers);
+            oos.writeObject(users);
             oos.flush();
         } catch (FileNotFoundException ex) {
             System.out.println("Не найден файл");
@@ -35,14 +35,14 @@ public class ReaderSaver {
         }
     }
 
-    public Reader[] loadReaders() {
-        Reader[] readers = new Reader[10];
+    public User[] loadUsers() {
+        User[] users = new User[10];
         FileInputStream fis = null;
         ObjectInputStream ois = null;
         try {
-            fis = new FileInputStream("readers");
+            fis = new FileInputStream("users");
             ois = new ObjectInputStream(fis);
-            readers = (Reader[]) ois.readObject();
+            users = (User[]) ois.readObject();
         } catch (FileNotFoundException ex) {
             System.out.println("Не найден файл");
         } catch (IOException ex) {
@@ -50,12 +50,9 @@ public class ReaderSaver {
         } catch (ClassNotFoundException ex) {
             System.out.println("Не найден класс");
         }
-        return readers;
+        return users;
     }
 
     
     
 }
-
-
-

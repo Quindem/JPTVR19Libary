@@ -12,38 +12,45 @@ import Tools.ReaderManager;
 import entity.Book;
 import entity.History;
 import entity.Reader;
+import entity.User;
 import java.util.Scanner;
+import Tools.SecureManager;
 import Tools.BookManager;
 import Tools.ReaderSaver;
+import Tools.UserSaver;
 
 
 /**
  *
  * @author pupil
  */
- class App {
+ public class App {
     private Book[] books = new Book[10];
     private Reader[] readers = new Reader[10];
     private History[] histories = new History[10];
+    private User[] users = new User[10];
     private BookManager bookManager = new BookManager();
     private ReaderManager readerManager = new ReaderManager();
-    private LibaryManager libaryManager = new LibaryManager();
+    private LibaryManager libraryManager = new LibaryManager();
     private BookSaver bookSaver = new BookSaver();
     private ReaderSaver readerSaver = new ReaderSaver();
     private HistorySaver historySaver = new HistorySaver();
+    private SecureManager secureManager = new SecureManager();
+    private UserSaver userSaver = new UserSaver();
+
+    public static User loginedUser;
     
-    public App(){
-        BookSaver bookSaver = new BookSaver();
+    public App() {
         books = bookSaver.loadBooks();
-        ReaderSaver readerSaver = new ReaderSaver();
         readers = readerSaver.loadReaders();
-        HistorySaver historySaver = new HistorySaver();
         histories = historySaver.loadHistories();
+        users = userSaver.loadUsers();
     }
+    
     public void run(){
         boolean repeat = true;
         System.out.println("--- Библиотека ---");
-        this.loginedUser = secureManager.checkTask(user,readers);
+        this.loginedUser = secureManager.checkTask(users,readers);
         do{
             System.out.println("Задачи: ");
             System.out.println("0. Выйти из программы");
@@ -53,6 +60,7 @@ import Tools.ReaderSaver;
             System.out.println("4. Список читателей");
             System.out.println("5. Выдать книгу читателю");
             System.out.println("6. Вернуть книгу в библиотеку");
+            System.out.println("7. Список выданных книг");
             System.out.print("Выберите задачу: ");
             Scanner scanner = new Scanner(System.in);
             String task = scanner.nextLine();
@@ -63,60 +71,40 @@ import Tools.ReaderSaver;
                     break;
                 case "1":
                     System.out.println("--- Добавить новую книгу ---");
-//                    Book book = new Book("Voina i mir", "L.Tolstoy", 2010, "123-1234");
-                    System.out.println("--- Добавить новую книгу ---");
                     Book book = bookManager.createBook();
                     bookManager.addBookToArray(book,books);
                     bookSaver.saveBooks(books);
-                            break;
-                        
-                    
-                   
-                    
-                    //System.out.println(book.toString());
-              
+                    break;
                 case "2":
                     System.out.println("--- Список книг ---");
-                    System.out.println("--- Список книг ---");
                     bookManager.printListBooks(books);
-                    
                     break;
                 case "3":
                     System.out.println("--- Зарегистрировать читателя ---");
-                       System.out.println("--- Зарегистрировать читателя ---");
                     Reader reader = readerManager.createReader();
                     readerManager.addReaderToArray(reader,readers);
                     readerSaver.saveReaders(readers);
                     break;
                 case "4":
                     System.out.println("--- Список читателей ---");
-                    System.out.println("--- Список читателей ---");
                     readerManager.printListReaders(readers);
-                    
                     break;
                 case "5":
                     System.out.println("--- Выдать книгу читателю ---");
-                    History history = libaryManager.takeOnBook(books, readers);
-                    libaryManager.addHistoryToArray(history,histories);
+                    History history = libraryManager.takeOnBook(books, readers);
+                    libraryManager.addHistoryToArray(history,histories);
                     historySaver.saveHistories(histories);
-                            break;
-                        
-                    
-                   
-                   
+                    break;
                 case "6":
                     System.out.println("--- Вернуть книгу в библиотеку ---");
-                    
-                    System.out.println("--- Вернуть книгу в библиотеку ---");
-                    libaryManager = new LibaryManager();
-                    libaryManager.returnBook(histories);
+                    libraryManager = new LibaryManager();
+                    libraryManager.returnBook(histories);
                     historySaver = new HistorySaver();
                     historySaver.saveHistories(histories);
-                   
                     break;
                 case "7":
-                   System.out.println("--- Список выданных книг ---");
-                    libaryManager.printListReadBooks(histories);
+                    System.out.println("--- Список выданных книг ---");
+                    libraryManager.printListReadBooks(histories);
                     break;
                 default:
                     System.out.println("Нет такой задачи.");
@@ -124,6 +112,7 @@ import Tools.ReaderSaver;
         }while(repeat);
     }
 }
+
       
      
         
