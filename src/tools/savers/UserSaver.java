@@ -3,32 +3,30 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Tools;
+package tools.savers;
 
 
-import entity.History;
-import entity.Reader;
+import entity.Book;
+import entity.User;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-
 /**
  *
  * @author pupil
  */
-public class HistorySaver {
+public class UserSaver {
 
-    public void saveHistories(History[] histories) {
-       
+    public void saveUsers(User[] users) {
         FileOutputStream fos = null;
         ObjectOutputStream oos = null;
         try {
-            fos = new FileOutputStream("histories");
+            fos = new FileOutputStream("users");
             oos = new ObjectOutputStream(fos);
-            oos.writeObject(histories);
+            oos.writeObject(users);
             oos.flush();
         } catch (FileNotFoundException ex) {
             System.out.println("Не найден файл");
@@ -37,14 +35,14 @@ public class HistorySaver {
         }
     }
 
-    public History[] loadHistories() {
-        History[] histories = new History[10];
+    public User[] loadUsers() {
+        User[] users = new User[10];
         FileInputStream fis = null;
         ObjectInputStream ois = null;
         try {
-            fis = new FileInputStream("histories");
+            fis = new FileInputStream("users");
             ois = new ObjectInputStream(fis);
-            histories = (History[]) ois.readObject();
+            users = (User[]) ois.readObject();
         } catch (FileNotFoundException ex) {
             System.out.println("Не найден файл");
         } catch (IOException ex) {
@@ -52,11 +50,9 @@ public class HistorySaver {
         } catch (ClassNotFoundException ex) {
             System.out.println("Не найден класс");
         }
-        return histories;
-  
+        return users;
     }
+
+    
     
 }
-
-        
-

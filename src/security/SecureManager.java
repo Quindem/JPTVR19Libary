@@ -3,15 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Tools;
+package security;
 
 import entity.Reader;
 import entity.User;
 import java.util.Scanner;
-import Tools.ReaderManager;
-import Tools.UserManager;
-import Tools.ReaderSaver;
-import Tools.UserSaver;
+import tools.creators.ReaderManager;
+import tools.creators.UserManager;
+import tools.savers.ReaderSaver;
+import tools.savers.UserSaver;
 
 /**
  *

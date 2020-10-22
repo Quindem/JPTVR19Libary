@@ -3,30 +3,32 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Tools;
+package tools.savers;
 
 
-import entity.Book;
-import entity.User;
+import entity.History;
+import entity.Reader;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+
 /**
  *
  * @author pupil
  */
-public class UserSaver {
+public class HistorySaver {
 
-    public void saveUsers(User[] users) {
+    public void saveHistories(History[] histories) {
+       
         FileOutputStream fos = null;
         ObjectOutputStream oos = null;
         try {
-            fos = new FileOutputStream("users");
+            fos = new FileOutputStream("histories");
             oos = new ObjectOutputStream(fos);
-            oos.writeObject(users);
+            oos.writeObject(histories);
             oos.flush();
         } catch (FileNotFoundException ex) {
             System.out.println("Не найден файл");
@@ -35,14 +37,14 @@ public class UserSaver {
         }
     }
 
-    public User[] loadUsers() {
-        User[] users = new User[10];
+    public History[] loadHistories() {
+        History[] histories = new History[10];
         FileInputStream fis = null;
         ObjectInputStream ois = null;
         try {
-            fis = new FileInputStream("users");
+            fis = new FileInputStream("histories");
             ois = new ObjectInputStream(fis);
-            users = (User[]) ois.readObject();
+            histories = (History[]) ois.readObject();
         } catch (FileNotFoundException ex) {
             System.out.println("Не найден файл");
         } catch (IOException ex) {
@@ -50,9 +52,11 @@ public class UserSaver {
         } catch (ClassNotFoundException ex) {
             System.out.println("Не найден класс");
         }
-        return users;
+        return histories;
+  
     }
-
-    
     
 }
+
+        
+

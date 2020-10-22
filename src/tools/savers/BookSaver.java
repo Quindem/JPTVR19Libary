@@ -3,10 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Tools;
+package tools.savers;
 
-
-import entity.Reader;
+import entity.Book;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -18,44 +17,38 @@ import java.io.ObjectOutputStream;
  *
  * @author pupil
  */
-public class ReaderSaver {
-
-    public void saveReaders(Reader[] readers) {
+public class BookSaver {
+    public void saveBooks(Book[]books){
         FileOutputStream fos = null;
         ObjectOutputStream oos = null;
         try {
-            fos = new FileOutputStream("readers");
+            fos = new FileOutputStream("books");
             oos = new ObjectOutputStream(fos);
-            oos.writeObject(readers);
+            oos.writeObject(books);
             oos.flush();
-        } catch (FileNotFoundException ex) {
+        }catch (FileNotFoundException ex){
             System.out.println("Не найден файл");
-        } catch (IOException ex) {
+        }catch (IOException ex){
             System.out.println("Ошибка ввода/вывода");
         }
     }
 
-    public Reader[] loadReaders() {
-        Reader[] readers = new Reader[10];
+public Book[] loadBooks(){
+Book[] books = new Book[10];
         FileInputStream fis = null;
         ObjectInputStream ois = null;
-        try {
-            fis = new FileInputStream("readers");
+        try{
+            fis = new FileInputStream("books");
             ois = new ObjectInputStream(fis);
-            readers = (Reader[]) ois.readObject();
+            books = (Book[]) ois.readObject();
         } catch (FileNotFoundException ex) {
-            System.out.println("Не найден файл");
+           System.out.println("Не найден файл");
         } catch (IOException ex) {
             System.out.println("Ошибка ввода/вывода");
         } catch (ClassNotFoundException ex) {
             System.out.println("Не найден класс");
         }
-        return readers;
+        return books;
     }
-
-    
-    
-}
-
-
+        }
 
